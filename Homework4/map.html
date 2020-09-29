@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Map</title>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+      body {margin: 0; padding: 0;}
+      #map { position: absolute; top: 0; bottom: 0; width: 100%;}
+      .map-overlay{
+          position: absolute;
+          left: 0;
+          padding: 10px;
+      }
+  </style>
+</head>
+
+<body>
+
+<div id='map'></div>
+
+<div class="map-overlay top">
+    <button style="font-size: 2em;" onclick="move()">
+        Show stops between MIT and Harvard
+    </button>
+</div>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxtYW4xNTUiLCJhIjoiY2tmY3EyaXFvMHV6NDJ5b2dzYzk3MmQ4NyJ9.ntH1oN3fE5wpvXdofWtojw';
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [-71.104081, 42.365554], // starting position [lng, lat]
+        zoom: 14 // starting zoom
+    });
+
+var marker_list = [new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map), 
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map),
+    new mapboxgl.Marker().setLngLat([-71.092761, 42.357575]).addTo(map)];
+
+async function run(){
+    const locations = await getBusLocations();
+    let i;
+    
+    for (i=0; i<10; i++) {
+        marker_list[i].setLngLat([locations[i].attributes.longitude, locations[i].attributes.latitude]);
+    }
+    // move();
+    // timer
+    setTimeout(run, 15000);
+}
+
+async function getBusLocations(){
+    const url = 'https://api-v3.mbta.com/vehicles?filter[route]=1&include=trip';
+    const response = await fetch(url);
+    const json = await response.json();
+    return json.data;
+}
+
+
+function move(){
+    let counter = 0;
+    setTimeout(() =>{
+        if (counter >= 10) return;
+        marker.setLngLat(busStops[counter]);
+        counter++
+        move();
+    }, 1000)
+}
+
+run()
+
+</script>
+
+</body>
+</html>

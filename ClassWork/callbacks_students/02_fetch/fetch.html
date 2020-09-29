@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<div id="container"></div>
+
+<script>
+var container = document.getElementById('container');
+var url = 'https://compuxo.org/assets/json/bostoncitydata.json';
+
+async function fetchData(){
+    var res = await fetch(url);
+    var json = await res.json();
+    console.log(json);
+    
+    json.data.forEach(employee =>{
+        container.innerHTML += employee[9] + '<br>';
+    })
+}
+fetchData();
+
+</script>
+</html>

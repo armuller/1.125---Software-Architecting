@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+async function fetchData(url){
+	var res = await fetch(url);
+	var json = await res.json();
+    return json;
+}
+
+async function run(){
+	var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=4f145bca7bc87d6287f1caab430a29f9';
+
+	var tags = '&per_page=20';
+	tags += '&bbox=-71.094423,42.358018,-71.093827,42.358544';
+	tags += '&format=json';
+	tags += '&nojsoncallback=1';
+	tags += '&tags=mit';
+	tags += '&accuracy=6';
+	tags += '&extras=description,+date_taken,date_upload,owner_name,geo,url_s';
+
+	var data = await fetchData(url + tags);
+	console.log(data);
+}
+
+</script>
+
+<input type="button" value="call server" onclick="run()">
+
+</html>

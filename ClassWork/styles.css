@@ -1,0 +1,27 @@
+.greenItems{
+    color: green;
+    font-size: 2em;
+}
+.redItems{
+    color: red;
+    font-size: 3em;
+}
+#poundItems{
+    color: orange;
+    font-size: 4em;
+}
+#square{
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+.circle{
+    z-index:5;
+    position:absolute;
+    left:100px;
+    top:200px;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:black">
+}

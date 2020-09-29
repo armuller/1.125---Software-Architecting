@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<div id="container"></div>
+<script>
+const url = 'https://feeds.transloc.com/3/vehicle_statuses?agencies=64,52';
+var data = null;
+
+async function fetchShuttles(){
+	var res = await fetch(url);
+	var json = await res.json();
+	console.log(json);
+
+	json.vehicles.forEach(vehicles =>{
+        container.innerHTML += vehicles.position + '<br>';
+    })
+}
+fetchShuttles();
+
+</script>
+</html>
